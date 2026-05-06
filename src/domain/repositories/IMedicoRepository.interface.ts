@@ -1,6 +1,6 @@
-import { Medico } from '../entities/medico';
+import { Medico } from "../entities/medico";
 
-export interface IAgendaRepository {
+export interface IMedicoRepository {
   listAll(): Promise<Medico[]>;
   findById(id: string): Promise<Medico | null>;
 }

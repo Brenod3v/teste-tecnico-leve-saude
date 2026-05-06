@@ -1,10 +1,10 @@
 import { Medico } from '@/domain/entities/medico';
-import { IAgendaRepository } from '@/domain/repositories/agenda.repository';
+import { MemoryMedicoRepository } from '@/infra/persistence/memory/memory-medico.repository';
 
 export class ListarAgendasUseCase {
-  constructor(private agendaRepository: IAgendaRepository) {}
+  constructor(private medicoRepository: MemoryMedicoRepository) {}
 
   async execute(): Promise<Medico[]> {
-    return await this.agendaRepository.listAll();
+    return await this.medicoRepository.listAll();
   }
 }
