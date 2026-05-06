@@ -1,6 +1,7 @@
 import { Agendamento } from '@/domain/entities/agendamento';
-import { MemoryAgendamentoRepository } from '@/infra/persistence/memory/memory-agendamento.repository';
-import { MemoryMedicoRepository } from '@/infra/persistence/memory/memory-medico.repository';
+import { IAgendamentoRepository } from '@/domain/repositories/IAgendamentoRepository.interface';
+import { IMedicoRepository } from '@/domain/repositories/IMedicoRepository.interface';
+
 
 export interface CriarAgendamentoInput {
   medicoId: string;
@@ -10,8 +11,8 @@ export interface CriarAgendamentoInput {
 
 export class CriarAgendamentoUseCase {
   constructor(
-    private agendamentoRepository: MemoryAgendamentoRepository,
-    private agendaRepository: MemoryMedicoRepository,
+    private agendamentoRepository: IAgendamentoRepository,
+    private agendaRepository: IMedicoRepository,
   ) {}
 
   async execute(input: CriarAgendamentoInput): Promise<Agendamento> {
