@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "serverless offline",
+    "build": "serverless package",
+    "test": "jest",
     "lint": "eslint 'src/**/*.{ts,js}'",
     "lint:fix": "eslint 'src/**/*.{ts,js}' --fix",
     "format": "prettier --write 'src/**/*.{ts,js}'"
@@ -31,7 +33,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
     "prettier": "^3.8.3",
-    "serverless": "^4.35.0",
+    "serverless": "^3.40.0",
     "serverless-esbuild": "^1.57.1",
     "serverless-offline": "^14.5.0",
     "typescript": "^6.0.3"
