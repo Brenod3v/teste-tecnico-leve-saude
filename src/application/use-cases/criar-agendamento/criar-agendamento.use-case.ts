@@ -16,30 +16,24 @@ export class CriarAgendamentoUseCase {
 
   async execute(input: CriarAgendamentoInput): Promise<CriarAgendamentoOutput> {
     const medico = await this.medicoRepository.findById(input.medicoId);
-    if (!medico) {
-      throw new MedicoNotFoundError();
-    }
+    if (!medico) throw new MedicoNotFoundError();
 
     const horarioDisponivel = medico.agenda.some(
       (data) => data.getTime() === input.dataHorario.getTime(),
     );
-
-    if (!horarioDisponivel) {
-      throw new HorarioIndisponivelError();
-    }
+    if (!horarioDisponivel) throw new HorarioIndisponivelError();
 
     const conflito = await this.agendamentoRepository.findByMedicoAndHorario(
       input.medicoId,
       input.dataHorario,
     );
-
-    if (conflito) {
-      throw new AgendamentoConflictError();
-    }
+    if (conflito) throw new AgendamentoConflictError();
 
     const newAgendamento: Agendamento = {
       id: Math.random().toString(36).substring(7),
-      ...input,
+      medicoId: input.medicoId,
+      pacienteNome: input.pacienteNome,
+      dataHorario: input.dataHorario,
     };
 
     await this.agendamentoRepository.create(newAgendamento);
