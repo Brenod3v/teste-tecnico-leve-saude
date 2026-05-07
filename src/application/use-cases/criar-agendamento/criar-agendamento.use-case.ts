@@ -7,7 +7,7 @@ import {
   AgendamentoConflictError 
 } from '@/application/errors/business-errors';
 import { CriarAgendamentoInput, CriarAgendamentoOutput } from './criar-agendamento.dto';
-import { v4 as uuidv4 } from 'uuid';
+import { randomUUID } from 'crypto';
 
 function formatDateToString(date: Date): string {
   const year = date.getUTCFullYear();
@@ -59,7 +59,7 @@ export class CriarAgendamentoUseCase {
     if (conflito) throw new AgendamentoConflictError();
 
     const newAgendamento: Agendamento = {
-      id: uuidv4(),
+      id: randomUUID(),
       medicoId,
       pacienteNome,
       dataHorario,
