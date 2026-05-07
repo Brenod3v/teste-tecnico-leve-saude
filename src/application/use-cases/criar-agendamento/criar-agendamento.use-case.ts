@@ -6,7 +6,7 @@ import {
   HorarioIndisponivelError, 
   AgendamentoConflictError 
 } from '@/application/errors/business-errors';
-import { CriarAgendamentoInput } from './criar-agendamento.dto';
+import { CriarAgendamentoInput, CriarAgendamentoOutput } from './criar-agendamento.dto';
 
 export class CriarAgendamentoUseCase {
   constructor(
@@ -14,7 +14,7 @@ export class CriarAgendamentoUseCase {
     private medicoRepository: IMedicoRepository,
   ) {}
 
-  async execute(input: CriarAgendamentoInput): Promise<Agendamento> {
+  async execute(input: CriarAgendamentoInput): Promise<CriarAgendamentoOutput> {
     const medico = await this.medicoRepository.findById(input.medicoId);
     if (!medico) {
       throw new MedicoNotFoundError();
@@ -44,6 +44,11 @@ export class CriarAgendamentoUseCase {
 
     await this.agendamentoRepository.create(newAgendamento);
 
-    return newAgendamento;
+    return {
+      id: newAgendamento.id,
+      medicoId: newAgendamento.medicoId,
+      pacienteNome: newAgendamento.pacienteNome,
+      dataHorario: newAgendamento.dataHorario,
+    };
   }
 }

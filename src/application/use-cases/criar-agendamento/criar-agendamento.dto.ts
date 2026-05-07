@@ -6,4 +6,9 @@ export interface CriarAgendamentoInput {
   dataHorario: Date;
 }
 
-export type CriarAgendamentoOutput = Agendamento;
+export interface CriarAgendamentoOutput {
+  id: string;
+  medicoId: string;
+  pacienteNome: string;
+  dataHorario: Date;
+}
