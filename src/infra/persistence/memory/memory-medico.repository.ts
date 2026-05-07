@@ -6,20 +6,21 @@ export class MemoryMedicoRepository implements IMedicoRepository {
   private medicos: Medico[] = [
     {
       id: '1',
-      nome: 'Dra. Ana Paula',
-      especialidade: 'Cardiologia',
+      nome: 'Dr. João Silva',
+      especialidade: 'Cardiologista',
       agenda: [
-        new Date('2026-05-10T09:00:00Z'),
-        new Date('2026-05-10T10:00:00Z'),
+        new Date('2026-06-10T09:00:00Z'),
+        new Date('2026-06-10T10:00:00Z'),
+        new Date('2026-06-10T11:00:00Z'),
       ],
     },
     {
       id: '2',
-      nome: 'Dr. Rodrigo Silva',
-      especialidade: 'Dermatologia',
+      nome: 'Dra. Maria Souza',
+      especialidade: 'Dermatologista',
       agenda: [
-        new Date('2026-05-11T14:00:00Z'),
-        new Date('2026-05-11T15:00:00Z'),
+        new Date('2026-06-11T14:00:00Z'),
+        new Date('2026-06-11T15:00:00Z'),
       ],
     },
   ];

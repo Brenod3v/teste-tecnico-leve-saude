@@ -7,6 +7,20 @@ import {
   AgendamentoConflictError 
 } from '@/application/errors/business-errors';
 import { CriarAgendamentoInput, CriarAgendamentoOutput } from './criar-agendamento.dto';
+import { v4 as uuidv4 } from 'uuid';
+
+function formatDateToString(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  return `${year}-${month}-${day} ${hours}:${minutes}`;
+}
+
+function parseStringToDate(dateString: string): Date {
+  return new Date(dateString.replace(' ', 'T'));
+}
 
 export class CriarAgendamentoUseCase {
   constructor(
@@ -15,34 +29,42 @@ export class CriarAgendamentoUseCase {
   ) {}
 
   async execute(input: CriarAgendamentoInput): Promise<CriarAgendamentoOutput> {
-    const medico = await this.medicoRepository.findById(input.medicoId);
+    const medicoId = input.agendamento.medico_id;
+    const pacienteNome = input.agendamento.paciente;
+    const dataHorarioString = input.agendamento.data_horario;
+    const dataHorario = parseStringToDate(dataHorarioString);
+
+    const medico = await this.medicoRepository.findById(medicoId);
     if (!medico) throw new MedicoNotFoundError();
 
     const horarioDisponivel = medico.agenda.some(
-      (data) => data.getTime() === input.dataHorario.getTime(),
+      (data) => data.getTime() === dataHorario.getTime(),
     );
     if (!horarioDisponivel) throw new HorarioIndisponivelError();
 
     const conflito = await this.agendamentoRepository.findByMedicoAndHorario(
-      input.medicoId,
-      input.dataHorario,
+      medicoId,
+      dataHorario,
     );
     if (conflito) throw new AgendamentoConflictError();
 
     const newAgendamento: Agendamento = {
-      id: Math.random().toString(36).substring(7),
-      medicoId: input.medicoId,
-      pacienteNome: input.pacienteNome,
-      dataHorario: input.dataHorario,
+      id: uuidv4(),
+      medicoId,
+      pacienteNome,
+      dataHorario,
     };
 
     await this.agendamentoRepository.create(newAgendamento);
 
     return {
-      id: newAgendamento.id,
-      medicoId: newAgendamento.medicoId,
-      pacienteNome: newAgendamento.pacienteNome,
-      dataHorario: newAgendamento.dataHorario,
+      mensagem: 'Agendamento realizado com sucesso',
+      agendamento: {
+        id: newAgendamento.id,
+        medico: medico.nome,
+        paciente: pacienteNome,
+        data_horario: formatDateToString(dataHorario),
+      },
     };
   }
 }
