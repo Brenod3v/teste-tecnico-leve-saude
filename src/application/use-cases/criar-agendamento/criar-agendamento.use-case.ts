@@ -10,16 +10,26 @@ import { CriarAgendamentoInput, CriarAgendamentoOutput } from './criar-agendamen
 import { v4 as uuidv4 } from 'uuid';
 
 function formatDateToString(date: Date): string {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const year = date.getUTCFullYear();
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(date.getUTCDate()).padStart(2, '0');
+  const hours = String(date.getUTCHours()).padStart(2, '0');
+  const minutes = String(date.getUTCMinutes()).padStart(2, '0');
   return `${year}-${month}-${day} ${hours}:${minutes}`;
 }
 
 function parseStringToDate(dateString: string): Date {
-  return new Date(dateString.replace(' ', 'T'));
+  const [date, time] = dateString.split(' ');
+  const [year, month, day] = date.split('-');
+  const [hours, minutes] = time.split(':');
+  return new Date(Date.UTC(
+    parseInt(year),
+    parseInt(month) - 1,
+    parseInt(day),
+    parseInt(hours),
+    parseInt(minutes),
+    0
+  ));
 }
 
 export class CriarAgendamentoUseCase {
@@ -56,6 +66,7 @@ export class CriarAgendamentoUseCase {
     };
 
     await this.agendamentoRepository.create(newAgendamento);
+    await this.medicoRepository.removeHorario(medicoId, dataHorario);
 
     return {
       mensagem: 'Agendamento realizado com sucesso',

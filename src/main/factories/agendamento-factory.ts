@@ -1,13 +1,28 @@
-
 import { CriarAgendamentoUseCase } from '@/application/use-cases/criar-agendamento/criar-agendamento.use-case';
 import { ListarAgendasUseCase } from '@/application/use-cases/listar-agendas/listar-agendas.use-case';
+import { IAgendamentoRepository } from '@/domain/repositories/IAgendamentoRepository.interface';
+import { IMedicoRepository } from '@/domain/repositories/IMedicoRepository.interface';
 import { MemoryAgendamentoRepository } from '@/infra/persistence/memory/memory-agendamento.repository';
 import { MemoryMedicoRepository } from '@/infra/persistence/memory/memory-medico.repository';
 
-const medicoRepo = new MemoryMedicoRepository();
-const agendamentoRepo = new MemoryAgendamentoRepository();
+export class UseCaseFactory {
+  constructor(
+    private agendamentoRepository: IAgendamentoRepository,
+    private medicoRepository: IMedicoRepository,
+  ) {}
 
-export const makeListarAgendasUseCase = () => new ListarAgendasUseCase(medicoRepo);
+  makeListarAgendasUseCase(): ListarAgendasUseCase {
+    return new ListarAgendasUseCase(this.medicoRepository);
+  }
 
-export const makeCriarAgendamentoUseCase = () => 
-  new CriarAgendamentoUseCase(agendamentoRepo, medicoRepo);
+  makeCriarAgendamentoUseCase(): CriarAgendamentoUseCase {
+    return new CriarAgendamentoUseCase(this.agendamentoRepository, this.medicoRepository);
+  }
+}
+
+export function createUseCaseFactory(): UseCaseFactory {
+  return new UseCaseFactory(
+    MemoryAgendamentoRepository.getInstance(),
+    MemoryMedicoRepository.getInstance(),
+  );
+}
