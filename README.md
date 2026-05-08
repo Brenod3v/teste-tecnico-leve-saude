@@ -23,14 +23,19 @@ API REST para agendamento de consultas médicas com triagem inteligente por IA.
 
 ```bash
 # Clonar repositório
-git clone <repo-url>
-cd leve-saude
+git clone git@github.com:Brenod3v/teste-tecnico-leve-saude.git
+cd teste-tecnico-leve-saude
 
 # Instalar dependências
 npm install
 
 # Copiar arquivo de configuração
 cp .env.example .env
+```
+
+**Nota:** Se receber erro de dependência durante `npm install`, use:
+```bash
+npm install --legacy-peer-deps
 ```
 
 ## 🏃 Executar Localmente
