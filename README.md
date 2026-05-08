@@ -10,7 +10,7 @@ API REST para agendamento de consultas médicas com triagem inteligente por IA.
 - ✅ **Clean Architecture** com SOLID principles
 - ✅ **Testes Unitários e de Integração** com Jest (42 testes)
 - ✅ **TypeScript** com tipagem explícita
-- ✅ **Decorators** para logging e tratamento de erros
+- ✅ **Logging e Tratamento de Erros** com Higher-Order Functions
 - ✅ **Variáveis de Ambiente** com dotenv
 
 ## 📋 Requisitos
@@ -185,9 +185,9 @@ src/
 │   ├── ai/              # Serviços de IA
 │   └── persistence/     # Repositórios
 ├── main/                # Camada de apresentação
-│   ├── decorators/      # Decorators transversais
 │   ├── factories/       # Factory pattern
-│   └── handlers/        # Handlers Lambda
+│   ├── handlers/        # Handlers Lambda com logging e tratamento de erros
+│   └── types.ts         # Tipos HTTP
 └── config/              # Configuração
 ```
 
@@ -229,6 +229,23 @@ serverless deploy --param="aiProvider=openai" --param="aiApiKey=sk-..."
 ```
 
 ## 🛠️ Desenvolvimento
+
+### Logging e Tratamento de Erros
+
+Os handlers usam **Higher-Order Functions** para logging e tratamento de erros:
+
+```typescript
+// src/main/handlers/handler-service.ts
+export const listarAgendasHandler = withLogging(
+  'ListarAgendas',
+  withErrorHandling(handleListarAgendas),
+);
+```
+
+**Funcionalidades:**
+- Logs de início e fim com tempo de execução
+- Tratamento automático de erros (Zod, AppError, genéricos)
+- Respostas HTTP formatadas
 
 ### Lint
 
