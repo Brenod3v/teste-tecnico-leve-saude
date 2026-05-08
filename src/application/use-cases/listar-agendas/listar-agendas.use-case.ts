@@ -13,7 +13,7 @@ function formatDateToString(date: Date): string {
 export class ListarAgendasUseCase {
   constructor(private medicoRepository: IMedicoRepository) {}
 
-  async execute(input: ListarAgendasInput): Promise<ListarAgendasOutput> {
+  async execute(_input: ListarAgendasInput): Promise<ListarAgendasOutput> {
     const medicos = await this.medicoRepository.listAll();
 
     return {
