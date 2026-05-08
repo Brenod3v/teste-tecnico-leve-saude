@@ -1,5 +1,5 @@
 import { MemoryAgendamentoRepository } from '../memory-agendamento.repository';
-import { Agendamento } from '@/domain/entities/agendamento';
+import { Agendamento } from '@/domain/entities/agendamento.entity';
 
 describe('MemoryAgendamentoRepository', () => {
   let repository: MemoryAgendamentoRepository;

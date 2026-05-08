@@ -1,4 +1,4 @@
-import { Agendamento } from '@/domain/entities/agendamento';
+import { Agendamento } from '@/domain/entities/agendamento.entity';
 import { IAgendamentoRepository } from '@/domain/repositories/IAgendamentoRepository.interface';
 import { IMedicoRepository } from '@/domain/repositories/IMedicoRepository.interface';
 import {

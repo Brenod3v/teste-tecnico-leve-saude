@@ -1,5 +1,5 @@
 import { IAIService } from '@/domain/services/ai.service.interface';
-import { Triagem } from '@/domain/entities/triagem';
+import { Triagem } from '@/domain/entities/triagem.entity';
 import { OpenAI } from 'openai';
 import { TRIAGEM_PROMPT } from './prompts/triagem.prompt';
 import { TriagemResponse } from './types/ai.types';

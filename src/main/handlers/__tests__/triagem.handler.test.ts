@@ -1,4 +1,4 @@
-import { handler } from '../triagem-handler/index';
+import { handler } from '../triagem/index';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 
 describe('POST /triagem Handler', () => {

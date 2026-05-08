@@ -1,6 +1,6 @@
 import { TriagemUseCase } from '../triagem.use-case';
 import { IAIService } from '@/domain/services/ai.service.interface';
-import { Triagem } from '@/domain/entities/triagem';
+import { Triagem } from '@/domain/entities/triagem.entity';
 
 describe('TriagemUseCase', () => {
   let useCase: TriagemUseCase;

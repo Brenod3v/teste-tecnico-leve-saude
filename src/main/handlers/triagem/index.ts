@@ -1,6 +1,6 @@
 import '@/config/env';
 import { APIGatewayProxyHandler } from 'aws-lambda';
-import { createUseCaseFactory } from '../../factories/agendamento-factory';
+import { createUseCaseFactory } from '../../factories/useCase.factory';
 import { TriagemInputSchema } from '@/application/use-cases/triagem/triagem.dto';
 import { AppError } from '@/application/errors/base-error';
 import { z } from 'zod';

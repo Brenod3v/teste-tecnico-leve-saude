@@ -53,7 +53,7 @@ functions:
           cors: true
 
   createAgendamento:
-    handler: src/main/handlers/create-agendamento-handler/index.handler
+    handler: src/main/handlers/create-agendamento/index.handler
     description: Cria um novo agendamento de consulta
     memorySize: ${env:LAMBDA_MEMORY, 256}
     timeout: ${env:LAMBDA_TIMEOUT, 30}
@@ -64,7 +64,7 @@ functions:
           cors: true
 
   triagem:
-    handler: src/main/handlers/triagem-handler/index.handler
+    handler: src/main/handlers/triagem/index.handler
     description: Analisa sintomas e sugere especialidade médica
     memorySize: ${env:LAMBDA_MEMORY, 512}
     timeout: ${env:LAMBDA_TIMEOUT, 60}

@@ -1,5 +1,5 @@
 import { IAIService } from '@/domain/services/ai.service.interface';
-import { Triagem } from '@/domain/entities/triagem';
+import { Triagem } from '@/domain/entities/triagem.entity';
 import { EspecialidadeMatch } from './types/ai.types';
 
 export class MockAIService implements IAIService {

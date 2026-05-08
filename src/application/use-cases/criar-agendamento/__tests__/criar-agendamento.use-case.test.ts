@@ -1,7 +1,7 @@
 import { CriarAgendamentoUseCase } from '../criar-agendamento.use-case';
 import { IAgendamentoRepository } from '@/domain/repositories/IAgendamentoRepository.interface';
 import { IMedicoRepository } from '@/domain/repositories/IMedicoRepository.interface';
-import { Medico } from '@/domain/entities/medico';
+import { Medico } from '@/domain/entities/medico.entity';
 import {
   MedicoNotFoundError,
   HorarioIndisponivelError,
