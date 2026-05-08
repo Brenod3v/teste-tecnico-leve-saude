@@ -8,16 +8,20 @@ export class MedicoNotFoundError extends AppError {
 
 export class HorarioIndisponivelError extends AppError {
   constructor() {
-    super('Horário indisponível', 409);
-    this.details = 'O horário solicitado não está mais disponível para este médico.';
+    super(
+      'Horário indisponível',
+      409,
+      'O horário solicitado não está mais disponível para este médico.'
+    );
   }
-  details?: string;
 }
 
 export class AgendamentoConflictError extends AppError {
   constructor() {
-    super('Horário indisponível', 409);
-    this.details = 'O horário solicitado não está mais disponível para este médico.';
+    super(
+      'Horário indisponível',
+      409,
+      'O horário solicitado não está mais disponível para este médico.'
+    );
   }
-  details?: string;
 }
