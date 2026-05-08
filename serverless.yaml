@@ -1,0 +1,75 @@
+service: ${env:SERVICE_NAME, 'agenda-medica-api'}
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ${env:AWS_REGION, 'us-east-1'}
+  stage: ${env:STAGE, 'dev'}
+  memorySize: ${env:LAMBDA_MEMORY, 256}
+  timeout: ${env:LAMBDA_TIMEOUT, 30}
+  
+  environment:
+
+    AI_PROVIDER: ${env:AI_PROVIDER, 'mock'}
+    AI_API_KEY: ${env:AI_API_KEY, ''}
+    AI_MODEL: ${env:AI_MODEL, ''}
+    
+    SERVER_PORT: ${env:SERVER_PORT, '3000'}
+    STAGE: ${env:STAGE, 'dev'}
+    LOG_LEVEL: ${env:LOG_LEVEL, 'info'}
+    DEBUG_AI: ${env:DEBUG_AI, 'false'}
+    
+    AI_TIMEOUT: ${env:AI_TIMEOUT, '30000'}
+    MAX_SYMPTOMS_LENGTH: ${env:MAX_SYMPTOMS_LENGTH, '1000'}
+
+plugins:
+  - serverless-esbuild
+  - serverless-offline
+
+custom:
+  esbuild:
+    bundle: true
+    minify: false
+    sourcemap: true
+    exclude: ['aws-sdk']
+    target: 'node20'
+    platform: 'node'
+    external: []
+    packager: npm
+    watch:
+      pattern: ['src/**/*.ts']
+      ignore: ['.build', 'dist', 'node_modules']
+
+functions:
+  getAgendas:
+    handler: src/main/handlers/get-agendas/index.handler
+    description: Lista todos os médicos com horários disponíveis
+    memorySize: ${env:LAMBDA_MEMORY, 256}
+    timeout: ${env:LAMBDA_TIMEOUT, 30}
+    events:
+      - http:
+          path: api/v1/agendas
+          method: get
+          cors: true
+
+  createAgendamento:
+    handler: src/main/handlers/create-agendamento-handler/index.handler
+    description: Cria um novo agendamento de consulta
+    memorySize: ${env:LAMBDA_MEMORY, 256}
+    timeout: ${env:LAMBDA_TIMEOUT, 30}
+    events:
+      - http:
+          path: api/v1/agendamento
+          method: post
+          cors: true
+
+  triagem:
+    handler: src/main/handlers/triagem-handler/index.handler
+    description: Analisa sintomas e sugere especialidade médica
+    memorySize: ${env:LAMBDA_MEMORY, 512}
+    timeout: ${env:LAMBDA_TIMEOUT, 60}
+    events:
+      - http:
+          path: api/v1/triagem
+          method: post
+          cors: true
