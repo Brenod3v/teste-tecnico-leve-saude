@@ -1,10 +1,11 @@
+import '@/config/env';
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import { createUseCaseFactory } from '../../factories/agendamento-factory';
-import { ListarAgendasInputSchema } from '@/application/use-cases/listar-agendas/listar-agendas.dto';
 import { AppError } from '@/application/errors/base-error';
 import { z } from 'zod';
+import { HttpResponse, ErrorResponse } from '../types';
 
-export const handler: APIGatewayProxyHandler = async (event) => {
+export const handler: APIGatewayProxyHandler = async (event): Promise<HttpResponse> => {
   try {
     const factory = createUseCaseFactory();
     const useCase = factory.makeListarAgendasUseCase();
@@ -14,12 +15,28 @@ export const handler: APIGatewayProxyHandler = async (event) => {
       statusCode: 200,
       body: JSON.stringify(result),
     };
+  } catch (error: unknown) {
+    if (error instanceof z.ZodError) {
+      const response: ErrorResponse = {
+        message: 'Parâmetros de busca inválidos',
+        details: error.flatten().fieldErrors,
+      };
+      return {
+        statusCode: 400,
+        body: JSON.stringify(response),
+      };
+    }
 
-  } catch (error: any) {
     if (error instanceof AppError) {
+      const response: ErrorResponse = {
+        message: error.message,
+      };
+      if (error.details) {
+        response.mensagem = error.details;
+      }
       return {
         statusCode: error.statusCode,
-        body: JSON.stringify({ message: error.message }),
+        body: JSON.stringify(response),
       };
     }
 
