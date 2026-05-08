@@ -1,6 +1,6 @@
 import '@/config/env';
 import { APIGatewayProxyHandler } from 'aws-lambda';
-import { createUseCaseFactory } from '../../factories/agendamento-factory';
+import { createUseCaseFactory } from '../../factories/useCase.factory';
 import { AppError } from '@/application/errors/base-error';
 import { z } from 'zod';
 import { HttpResponse, ErrorResponse } from '../types';

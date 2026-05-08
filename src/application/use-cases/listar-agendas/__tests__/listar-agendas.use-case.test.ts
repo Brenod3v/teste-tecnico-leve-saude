@@ -1,6 +1,6 @@
 import { ListarAgendasUseCase } from '../listar-agendas.use-case';
 import { IMedicoRepository } from '@/domain/repositories/IMedicoRepository.interface';
-import { Medico } from '@/domain/entities/medico';
+import { Medico } from '@/domain/entities/medico.entity';
 
 describe('ListarAgendasUseCase', () => {
   let useCase: ListarAgendasUseCase;

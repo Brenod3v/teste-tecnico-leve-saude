@@ -1,4 +1,4 @@
-import { handler } from '../create-agendamento-handler/index';
+import { handler } from '../create-agendamento/index';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 
 describe('POST /agendamento Handler', () => {

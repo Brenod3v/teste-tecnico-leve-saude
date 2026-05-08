@@ -1,4 +1,4 @@
-import { Medico } from '@/domain/entities/medico';
+import { Medico } from '@/domain/entities/medico.entity';
 import { IMedicoRepository } from '@/domain/repositories/IMedicoRepository.interface';
 
 export class MemoryMedicoRepository implements IMedicoRepository {
