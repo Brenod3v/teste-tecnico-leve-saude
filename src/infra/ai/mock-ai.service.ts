@@ -1,11 +1,6 @@
 import { IAIService } from '@/domain/services/ai.service.interface';
 import { Triagem } from '@/domain/entities/triagem';
-
-interface EspecialidadeMatch {
-  especialidade: string;
-  palavrasChave: string[];
-  confianca: number;
-}
+import { EspecialidadeMatch } from './types/ai.types';
 
 export class MockAIService implements IAIService {
   private especialidades: EspecialidadeMatch[] = [
