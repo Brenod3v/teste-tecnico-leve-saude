@@ -1,17 +1,14 @@
+import { APIGatewayProxyEvent } from 'aws-lambda';
 import { AppError } from '@/application/errors/base-error';
 import { z } from 'zod';
-import { HttpResponse, ErrorResponse } from '../handlers/types';
+import { HttpResponse, ErrorResponse } from '../types';
 
-export function HandleErrors(
-  target: unknown,
-  propertyKey: string,
-  descriptor: PropertyDescriptor,
-): PropertyDescriptor {
-  const originalMethod = descriptor.value;
-
-  descriptor.value = async function (...args: unknown[]): Promise<HttpResponse> {
+export function withErrorHandling(
+  fn: (event: APIGatewayProxyEvent) => Promise<HttpResponse>,
+): (event: APIGatewayProxyEvent) => Promise<HttpResponse> {
+  return async (event: APIGatewayProxyEvent): Promise<HttpResponse> => {
     try {
-      return await originalMethod.apply(this, args);
+      return await fn(event);
     } catch (error: unknown) {
       if (error instanceof z.ZodError) {
         const response: ErrorResponse = {
@@ -37,13 +34,11 @@ export function HandleErrors(
         };
       }
 
-      console.error(`[${propertyKey}] Erro não tratado:`, error);
+      console.error('[Handler Error]:', error);
       return {
         statusCode: 500,
         body: JSON.stringify({ message: 'Erro interno do servidor' }),
       };
     }
   };
-
-  return descriptor;
 }
