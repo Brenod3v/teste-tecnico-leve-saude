@@ -11,7 +11,7 @@ export class HorarioIndisponivelError extends AppError {
     super(
       'Horário indisponível',
       409,
-      'O horário solicitado não está mais disponível para este médico.'
+      'O horário solicitado não está mais disponível para este médico.',
     );
   }
 }
@@ -21,7 +21,7 @@ export class AgendamentoConflictError extends AppError {
     super(
       'Horário indisponível',
       409,
-      'O horário solicitado não está mais disponível para este médico.'
+      'O horário solicitado não está mais disponível para este médico.',
     );
   }
 }

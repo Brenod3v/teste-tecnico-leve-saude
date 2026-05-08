@@ -1,4 +1,8 @@
-export function Logger(target: unknown, propertyKey: string, descriptor: PropertyDescriptor): PropertyDescriptor {
+export function Logger(
+  target: unknown,
+  propertyKey: string,
+  descriptor: PropertyDescriptor,
+): PropertyDescriptor {
   const originalMethod = descriptor.value;
 
   descriptor.value = async function (...args: unknown[]): Promise<unknown> {

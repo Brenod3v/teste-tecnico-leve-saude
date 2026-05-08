@@ -21,7 +21,7 @@ export const handler: APIGatewayProxyHandler = async (event): Promise<HttpRespon
     let rawData: unknown;
     try {
       rawData = JSON.parse(event.body);
-    } catch (parseError) {
+    } catch (_parseError) {
       const response: ErrorResponse = {
         message: 'JSON inválido no corpo da requisição',
       };

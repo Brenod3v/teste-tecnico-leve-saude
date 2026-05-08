@@ -1,10 +1,10 @@
 import { Agendamento } from '@/domain/entities/agendamento';
 import { IAgendamentoRepository } from '@/domain/repositories/IAgendamentoRepository.interface';
 import { IMedicoRepository } from '@/domain/repositories/IMedicoRepository.interface';
-import { 
-  MedicoNotFoundError, 
-  HorarioIndisponivelError, 
-  AgendamentoConflictError 
+import {
+  MedicoNotFoundError,
+  HorarioIndisponivelError,
+  AgendamentoConflictError,
 } from '@/application/errors/business-errors';
 import { CriarAgendamentoInput, CriarAgendamentoOutput } from './criar-agendamento.dto';
 import { randomUUID } from 'crypto';
@@ -22,14 +22,16 @@ function parseStringToDate(dateString: string): Date {
   const [date, time] = dateString.split(' ');
   const [year, month, day] = date.split('-');
   const [hours, minutes] = time.split(':');
-  return new Date(Date.UTC(
-    parseInt(year),
-    parseInt(month) - 1,
-    parseInt(day),
-    parseInt(hours),
-    parseInt(minutes),
-    0
-  ));
+  return new Date(
+    Date.UTC(
+      parseInt(year),
+      parseInt(month) - 1,
+      parseInt(day),
+      parseInt(hours),
+      parseInt(minutes),
+      0,
+    ),
+  );
 }
 
 export class CriarAgendamentoUseCase {
@@ -52,10 +54,7 @@ export class CriarAgendamentoUseCase {
     );
     if (!horarioDisponivel) throw new HorarioIndisponivelError();
 
-    const conflito = await this.agendamentoRepository.findByMedicoAndHorario(
-      medicoId,
-      dataHorario,
-    );
+    const conflito = await this.agendamentoRepository.findByMedicoAndHorario(medicoId, dataHorario);
     if (conflito) throw new AgendamentoConflictError();
 
     const newAgendamento: Agendamento = {

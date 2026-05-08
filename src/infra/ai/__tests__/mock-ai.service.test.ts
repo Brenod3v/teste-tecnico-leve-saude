@@ -24,7 +24,9 @@ describe('MockAIService', () => {
     });
 
     it('deve sugerir Oftalmologia para sintomas de visão', async () => {
-      const result = await service.analisarSintomas('Minha visão está embaçada e tenho dificuldade para enxergar');
+      const result = await service.analisarSintomas(
+        'Minha visão está embaçada e tenho dificuldade para enxergar',
+      );
 
       expect(result.especialidadeSugerida).toBe('Oftalmologia');
       expect(result.confianca).toBeGreaterThan(0.8);
@@ -46,7 +48,7 @@ describe('MockAIService', () => {
 
     it('deve retornar confiança máxima de 0.99', async () => {
       const result = await service.analisarSintomas(
-        'Tosse, falta de ar, bronquite, asma, pulmão inflamado'
+        'Tosse, falta de ar, bronquite, asma, pulmão inflamado',
       );
 
       expect(result.confianca).toBeLessThanOrEqual(0.99);

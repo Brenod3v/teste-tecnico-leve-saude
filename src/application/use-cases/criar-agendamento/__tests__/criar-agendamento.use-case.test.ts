@@ -2,7 +2,11 @@ import { CriarAgendamentoUseCase } from '../criar-agendamento.use-case';
 import { IAgendamentoRepository } from '@/domain/repositories/IAgendamentoRepository.interface';
 import { IMedicoRepository } from '@/domain/repositories/IMedicoRepository.interface';
 import { Medico } from '@/domain/entities/medico';
-import { MedicoNotFoundError, HorarioIndisponivelError, AgendamentoConflictError } from '@/application/errors/business-errors';
+import {
+  MedicoNotFoundError,
+  HorarioIndisponivelError,
+  AgendamentoConflictError,
+} from '@/application/errors/business-errors';
 
 describe('CriarAgendamentoUseCase', () => {
   let useCase: CriarAgendamentoUseCase;

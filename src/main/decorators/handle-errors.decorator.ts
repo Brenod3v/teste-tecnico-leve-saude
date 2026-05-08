@@ -2,7 +2,11 @@ import { AppError } from '@/application/errors/base-error';
 import { z } from 'zod';
 import { HttpResponse, ErrorResponse } from '../handlers/types';
 
-export function HandleErrors(target: unknown, propertyKey: string, descriptor: PropertyDescriptor): PropertyDescriptor {
+export function HandleErrors(
+  target: unknown,
+  propertyKey: string,
+  descriptor: PropertyDescriptor,
+): PropertyDescriptor {
   const originalMethod = descriptor.value;
 
   descriptor.value = async function (...args: unknown[]): Promise<HttpResponse> {

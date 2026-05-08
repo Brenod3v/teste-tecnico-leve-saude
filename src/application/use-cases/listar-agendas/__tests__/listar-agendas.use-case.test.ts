@@ -11,10 +11,7 @@ describe('ListarAgendasUseCase', () => {
       id: '1',
       nome: 'Dr. João Silva',
       especialidade: 'Cardiologista',
-      agenda: [
-        new Date('2026-06-10T09:00:00Z'),
-        new Date('2026-06-10T10:00:00Z'),
-      ],
+      agenda: [new Date('2026-06-10T09:00:00Z'), new Date('2026-06-10T10:00:00Z')],
     },
     {
       id: '2',

@@ -12,7 +12,7 @@ describe('POST /agendamento Handler', () => {
     multiValueQueryStringParameters: null,
     pathParameters: null,
     multiValueHeaders: {},
-    requestContext: {} as any,
+    requestContext: {} as unknown,
     resource: '',
     stageVariables: null,
   });

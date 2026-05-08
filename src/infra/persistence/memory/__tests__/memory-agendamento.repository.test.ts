@@ -40,7 +40,10 @@ describe('MemoryAgendamentoRepository', () => {
     });
 
     it('deve retornar null quando agendamento não existe', async () => {
-      const found = await repository.findByMedicoAndHorario('999', new Date('2026-06-10T09:00:00Z'));
+      const found = await repository.findByMedicoAndHorario(
+        '999',
+        new Date('2026-06-10T09:00:00Z'),
+      );
       expect(found).toBeNull();
     });
 

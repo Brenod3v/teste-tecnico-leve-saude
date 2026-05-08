@@ -5,7 +5,7 @@ import { AppError } from '@/application/errors/base-error';
 import { z } from 'zod';
 import { HttpResponse, ErrorResponse } from '../types';
 
-export const handler: APIGatewayProxyHandler = async (event): Promise<HttpResponse> => {
+export const handler: APIGatewayProxyHandler = async (_event): Promise<HttpResponse> => {
   try {
     const factory = createUseCaseFactory();
     const useCase = factory.makeListarAgendasUseCase();

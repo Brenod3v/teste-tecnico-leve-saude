@@ -17,7 +17,7 @@ export class ListarAgendasUseCase {
     const medicos = await this.medicoRepository.listAll();
 
     return {
-      medicos: medicos.map(medico => ({
+      medicos: medicos.map((medico) => ({
         id: medico.id,
         nome: medico.nome,
         especialidade: medico.especialidade,

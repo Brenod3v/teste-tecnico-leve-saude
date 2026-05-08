@@ -1,6 +1,5 @@
-import { Medico } from "@/domain/entities/medico";
-import { IMedicoRepository } from "@/domain/repositories/IMedicoRepository.interface";
-
+import { Medico } from '@/domain/entities/medico';
+import { IMedicoRepository } from '@/domain/repositories/IMedicoRepository.interface';
 
 export class MemoryMedicoRepository implements IMedicoRepository {
   private static instance: MemoryMedicoRepository;
@@ -66,9 +65,7 @@ export class MemoryMedicoRepository implements IMedicoRepository {
   async removeHorario(medicoId: string, data: Date): Promise<void> {
     const medico = this.medicos.find((m) => m.id === medicoId);
     if (medico) {
-      medico.agenda = medico.agenda.filter(
-        (horario) => horario.getTime() !== data.getTime()
-      );
+      medico.agenda = medico.agenda.filter((horario) => horario.getTime() !== data.getTime());
     }
   }
 }

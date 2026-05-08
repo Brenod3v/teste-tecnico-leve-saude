@@ -1,4 +1,4 @@
-import { Medico } from "../entities/medico";
+import { Medico } from '../entities/medico';
 
 export interface IMedicoRepository {
   listAll(): Promise<Medico[]>;

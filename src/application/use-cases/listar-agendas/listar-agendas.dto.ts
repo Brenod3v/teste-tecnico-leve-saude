@@ -11,7 +11,7 @@ export const ListarAgendasOutputSchema = z.object({
       nome: z.string(),
       especialidade: z.string(),
       horarios_disponiveis: z.array(z.string()),
-    })
+    }),
   ),
 });
 

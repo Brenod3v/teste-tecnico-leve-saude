@@ -1,4 +1,8 @@
-import { MedicoNotFoundError, HorarioIndisponivelError, AgendamentoConflictError } from '../business-errors';
+import {
+  MedicoNotFoundError,
+  HorarioIndisponivelError,
+  AgendamentoConflictError,
+} from '../business-errors';
 
 describe('Business Errors', () => {
   describe('MedicoNotFoundError', () => {

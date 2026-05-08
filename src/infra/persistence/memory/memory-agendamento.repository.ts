@@ -1,6 +1,5 @@
-import { Agendamento } from "@/domain/entities/agendamento";
-import { IAgendamentoRepository } from "@/domain/repositories/IAgendamentoRepository.interface";
-
+import { Agendamento } from '@/domain/entities/agendamento';
+import { IAgendamentoRepository } from '@/domain/repositories/IAgendamentoRepository.interface';
 
 export class MemoryAgendamentoRepository implements IAgendamentoRepository {
   private static instance: MemoryAgendamentoRepository;

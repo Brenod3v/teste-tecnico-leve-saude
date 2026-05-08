@@ -39,10 +39,13 @@ export class MockAIService implements IAIService {
 
     for (const especialidade of this.especialidades) {
       const encontradas = especialidade.palavrasChave.filter((palavra) =>
-        sintomasLower.includes(palavra)
+        sintomasLower.includes(palavra),
       );
 
-      if (encontradas.length > 0 && (!melhorMatch || encontradas.length > palavrasEncontradas.length)) {
+      if (
+        encontradas.length > 0 &&
+        (!melhorMatch || encontradas.length > palavrasEncontradas.length)
+      ) {
         melhorMatch = especialidade;
         palavrasEncontradas = encontradas;
       }
@@ -53,13 +56,14 @@ export class MockAIService implements IAIService {
         sintomas,
         especialidadeSugerida: 'Clínica Geral',
         confianca: 0.5,
-        justificativa: 'Sintomas genéricos. Recomenda-se consulta com clínico geral para avaliação inicial.',
+        justificativa:
+          'Sintomas genéricos. Recomenda-se consulta com clínico geral para avaliação inicial.',
       };
     }
 
     const confiancaAjustada = Math.min(
       melhorMatch.confianca * (1 + palavrasEncontradas.length * 0.05),
-      0.99
+      0.99,
     );
 
     return {
